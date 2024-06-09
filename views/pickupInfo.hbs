@@ -1,0 +1,40 @@
+<h2>Pickup Information</h2>
+<div class="form-group">
+  <input type="text" class="form-control" id="searchInput" placeholder="Search by location">
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Client Name</th>
+      <th>Location</th>
+      <th>Last Pickup Date</th>
+      <th>Needs Pickup</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each clients}}
+      <tr>
+        <td>{{this.ClientName}}</td>
+        <td>{{this.ClientLocation}}</td>
+        <td>{{this.LastPickupDate}}</td>
+        <td>{{this.NeedsPickup}}</td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<script>
+  // Add event listener to search input
+  document.getElementById('searchInput').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach(function(row) {
+      const location = row.cells[1].textContent.toLowerCase();
+      if (location.includes(searchTerm)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+</script>

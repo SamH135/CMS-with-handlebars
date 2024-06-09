@@ -1,0 +1,47 @@
+<h2>System User Dashboard</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>User ID</th>
+      <th>Username</th>
+      <th>User Type</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {{#each users}}
+      <tr>
+        <td>{{this.UserID}}</td>
+        <td>{{this.Username}}</td>
+        <td>{{this.UserType}}</td>
+        <td>
+          <button type="button" class="btn btn-primary" onclick="editUser('{{this.UserID}}')">Edit</button>
+          {{#unless (eq this.UserID ../currentUserID)}}
+            <button type="button" class="btn btn-danger" onclick="deleteUser('{{this.UserID}}')">Delete</button>
+          {{/unless}}
+        </td>
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<script>
+  function editUser(userID) {
+    // Redirect to the user edit form with the userID
+    window.location.href = `/editUser/${userID}`;
+  }
+
+  function deleteUser(userID) {
+    // Send a request to delete the user
+    fetch(`/auth/deleteUser/${userID}`, { method: 'DELETE' })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Reload the page after successful deletion
+          window.location.reload();
+        } else {
+          alert('Failed to delete user');
+        }
+      });
+  }
+</script>

@@ -1,0 +1,11 @@
+npm init -y
+
+
+
+npm install bcryptjs body-parser bootstrap cookie-parser dotenv express express-handlebars express-session handlebars hbs jsonwebtoken mysql nodemon path
+
+
+
+
+need to add mysql2
+

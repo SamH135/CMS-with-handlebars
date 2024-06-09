@@ -1,0 +1,49 @@
+<h2>Client List</h2>
+<div class="form-group">
+  <input type="text" class="form-control" id="searchInput" placeholder="Search by client name or ID">
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Client ID</th>
+      <th>Client Name</th>
+      <th>Location</th>
+      <!-- Add more table headers as needed -->
+    </tr>
+  </thead>
+  <tbody>
+    {{#each clients}}
+      <tr data-client-id="{{this.ClientID}}">
+        <td>{{this.ClientID}}</td>
+        <td>{{this.ClientName}}</td>
+        <td>{{this.ClientLocation}}</td>
+        <!-- Add more table cells as needed -->
+      </tr>
+    {{/each}}
+  </tbody>
+</table>
+
+<script>
+  // Add event listener to search input
+  document.getElementById('searchInput').addEventListener('input', function() {
+    const searchTerm = this.value.toLowerCase();
+    const rows = document.querySelectorAll('tbody tr');
+    rows.forEach(function(row) {
+      const clientName = row.cells[1].textContent.toLowerCase();
+      const clientID = row.cells[0].textContent.toLowerCase();
+      if (clientName.includes(searchTerm) || clientID.includes(searchTerm)) {
+        row.style.display = '';
+      } else {
+        row.style.display = 'none';
+      }
+    });
+  });
+
+  // Add event listener to table rows
+  document.querySelectorAll('tbody tr').forEach(function(row) {
+    row.addEventListener('click', function() {
+      const clientID = this.getAttribute('data-client-id');
+      window.location.href = `/clientInfo/${clientID}`;
+    });
+  });
+</script>

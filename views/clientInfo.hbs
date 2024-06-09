@@ -1,0 +1,16 @@
+<h2>Client Information</h2>
+<form action="/auth/updateClient" method="POST">
+  <input type="hidden" name="clientID" value="{{client.ClientID}}">
+  <div class="form-group">
+    <label for="clientName">Client Name:</label>
+    <input type="text" class="form-control" name="clientName" id="clientName" value="{{client.ClientName}}" {{#unless isAdmin}}readonly{{/unless}}>
+  </div>
+  <div class="form-group">
+    <label for="clientLocation">Client Location:</label>
+    <input type="text" class="form-control" name="clientLocation" id="clientLocation" value="{{client.ClientLocation}}" {{#unless isAdmin}}readonly{{/unless}}>
+  </div>
+  <!-- Add more form fields as needed -->
+  {{#if isAdmin}}
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+  {{/if}}
+</form>
